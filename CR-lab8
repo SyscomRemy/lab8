@@ -70,6 +70,7 @@ rm min.c
 
 gcc main.c -L opt/lib -I opt/include opt/lib/liboutils.a -o main
 
+Remarque:(ne marchait pas avec le -l)
 ______________________________________________________________________________
 10)
 ./main (le programme s'exécute bien)
@@ -82,9 +83,10 @@ cp ../lab7/examen/variance.h
 
 gcc -c variance.c (Cette commande génère un fichier.o)
 
-ar -r opt/lib/liboutils.a (Permet d'ajouter le fichier dans la bibliothèque)
+ar -r opt/lib/liboutils.a variance.o
+ (Permet d'ajouter le fichier dans la bibliothèque)
 
-(Ne pas oublier de rajouter le #include "variance.h" dans le main.c)
+(Ne pas oublier de rajouter le #include "variance.h" et l'appel de la fonction variance dans le main.c)
 On peut maintenant supprimer les fichiers variance.c et variance.h
 
 ______________________________________________________________________________
