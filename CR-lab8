@@ -21,7 +21,9 @@ ar -t liboutils.a (Affiche max.o et min.o)
 _______________________________________________________________________________
 5)
 ranlib liboutils.a
-ranlib permet de créer un index des fichiers présents dans la bibliothèque (liboutils.a) et d’incorporer cet index à l’intérieur de la bibliothèque. Permet d'aacélérer l'édition des liens
+ranlib permet de créer un index des fichiers présents dans la bibliothèque
+(liboutils.a) et d’incorporer cet index à l’intérieur de la bibliothèque.
+ Permet d'aacélérer l'édition des liens
 
 _______________________________________________________________________________
 6)
@@ -90,7 +92,8 @@ ______________________________________________________________________________
 
 ar -t opt/lib/liboutils.a (Affiche max.o min.o et variance.o)
 
-_______________________________________________________________________________13)
+_______________________________________________________________________________
+13)
 ranlib opt/lib/liboutils.a
 nm opt/lib/liboutils.a
 
@@ -100,7 +103,9 @@ gcc main.c -L opt/lib -I opt/include opt/lib/liboutils.a -o main (compilation)
 
 ./main (execution, le programme renvoie bien les résultats de max min et variance).
 
-_______________________________________________________________________________15)
+_______________________________________________________________________________
+
+15)
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -124,7 +129,9 @@ int main ()
         return 0;
 }
 
-_______________________________________________________________________________16)
+______________________________________________________________________________
+
+16)
 Remarque: pour que la compilation fonctionne il est nécessaire de relier le code main.c avec la bibliothèque math lib sinon il ne reconnait pas ces fonctions
 
 commande:
