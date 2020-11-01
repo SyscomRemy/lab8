@@ -1,0 +1,133 @@
+CR lab8
+______________________________________________________________________________
+1)
+cp ../lab7/examen/max.h max.h
+cp ../lab7/examen/max.c max.c
+cp ../lab7/examen/min.h min.h
+cp ../lab7/examen/min.c min.c
+
+______________________________________________________________________________
+2)
+gcc -c max.c
+gcc -c max.c
+(l'option c permet de compiler sans générer de liens).
+
+______________________________________________________________________________
+3)
+ar -r liboutils.a max.o min.o
+______________________________________________________________________________
+4)
+ar -t liboutils.a (Affiche max.o et min.o)
+_______________________________________________________________________________
+5)
+ranlib liboutils.a
+ranlib permet de créer un index des fichiers présents dans la bibliothèque (liboutils.a) et d’incorporer cet index à l’intérieur de la bibliothèque. Permet d'aacélérer l'édition des liens
+
+_______________________________________________________________________________
+6)
+
+#include <stdlib.h>
+#include <stdio.h>
+#include "max.h"
+#include "min.h"
+
+int main ()
+{
+        int tab[7]={13,12,5,1,19,13,17};
+        int maxi=1;
+        int mini=100;
+        max(tab,7,&maxi);
+        min(tab,7,&mini);
+        printf("Le minimum est : %d\n",mini);
+        printf("Le maximum est : %d\n",maxi);
+        return 0;
+}
+
+commande pour vérifier le fonctionnement  du programme:
+gcc -c main.c (compilation)
+gcc -o main main.c max.c min.c (création de l'exécutalbe)
+./main (exécution du programme)
+
+________________________________________________________________________________
+7)
+mkdir opt
+cd opt
+mkdir include
+mkdir lib
+
+_______________________________________________________________________________
+8)
+mv *.h opt/include
+mv liboutils.a opt/lib
+
+_______________________________________________________________________________
+9)
+rm *.o
+rm max.c
+rm min.c
+
+gcc main.c -L opt/lib -I opt/include opt/lib/liboutils.a -o main
+
+______________________________________________________________________________
+10)
+./main (le programme s'exécute bien)
+
+______________________________________________________________________________
+11)
+
+cp ../lab7/examen/variance.c 
+cp ../lab7/examen/variance.h
+
+gcc -c variance.c (Cette commande génère un fichier.o)
+
+ar -r opt/lib/liboutils.a (Permet d'ajouter le fichier dans la bibliothèque)
+
+(Ne pas oublier de rajouter le #include "variance.h" dans le main.c)
+On peut maintenant supprimer les fichiers variance.c et variance.h
+
+______________________________________________________________________________
+12)
+
+ar -t opt/lib/liboutils.a (Affiche max.o min.o et variance.o)
+
+_______________________________________________________________________________13)
+ranlib opt/lib/liboutils.a
+nm opt/lib/liboutils.a
+
+______________________________________________________________________________
+14)
+gcc main.c -L opt/lib -I opt/include opt/lib/liboutils.a -o main (compilation)
+
+./main (execution, le programme renvoie bien les résultats de max min et variance).
+
+_______________________________________________________________________________15)
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+#include "max.h"
+#include "min.h"
+#include "variance.h"
+int main ()
+{
+        int tab[7]={13,12,5,1,19,13,17};
+        int maxi=1;
+        int mini=100;
+        float var;
+        max(tab,7,&maxi);
+        min(tab,7,&mini);
+        variance(tab,7,&var);
+        printf("Le minimum est : %d\n",mini);
+        printf("Le maximum est : %d\n",maxi);
+        printf("La variance est : %f\n",var);
+        printf("La variance arrondie au supérieur est : %f\n",ceil(var));
+        printf("La variance arrondie à l'inférieur est : %f\n",floor(var));
+        return 0;
+}
+
+_______________________________________________________________________________16)
+Remarque: pour que la compilation fonctionne il est nécessaire de relier le code main.c avec la bibliothèque math lib sinon il ne reconnait pas ces fonctions
+
+commande:
+gcc main.c -L opt/lib -I opt/include opt/lib/liboutils.a -lm -o main
+
+(Le programme s'exécute bien).
