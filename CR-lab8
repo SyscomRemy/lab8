@@ -14,7 +14,7 @@ gcc -c max.c
 
 ______________________________________________________________________________
 3)
-ar -r liboutils.a max.o min.o
+ar -r liboutils.a *.o
 ______________________________________________________________________________
 4)
 ar -t liboutils.a (Affiche max.o et min.o)
@@ -52,15 +52,14 @@ gcc -o main main.c max.c min.c (création de l'exécutalbe)
 
 ________________________________________________________________________________
 7)
-mkdir opt
-cd opt
-mkdir include
-mkdir lib
+
+mkdir /opt/lib
+mkdir /opt/include
 
 _______________________________________________________________________________
 8)
-mv *.h opt/include
-mv liboutils.a opt/lib
+mv *.h /opt/include
+mv liboutils.a /opt/lib
 
 _______________________________________________________________________________
 9)
@@ -68,12 +67,11 @@ rm *.o
 rm max.c
 rm min.c
 
-gcc main.c -L opt/lib -I opt/include opt/lib/liboutils.a -o main
+gcc main.c -L /opt/lib -I /opt/include -l outils -o main.exe
 
-Remarque:(ne marchait pas avec le -l)
 ______________________________________________________________________________
 10)
-./main (le programme s'exécute bien)
+./main.exe (le programme s'exécute bien)
 
 ______________________________________________________________________________
 11)
@@ -81,9 +79,9 @@ ______________________________________________________________________________
 cp ../lab7/examen/variance.c 
 cp ../lab7/examen/variance.h
 
-gcc -c variance.c (Cette commande génère un fichier.o)
+gcc -c variance.c (Cette commande génère un fichier.o sans edition de liens)
 
-ar -r opt/lib/liboutils.a variance.o
+ar -r /opt/lib/liboutils.a variance.o
  (Permet d'ajouter le fichier dans la bibliothèque)
 
 (Ne pas oublier de rajouter le #include "variance.h" et l'appel de la fonction variance dans le main.c)
@@ -92,16 +90,16 @@ On peut maintenant supprimer les fichiers variance.c et variance.h
 ______________________________________________________________________________
 12)
 
-ar -t opt/lib/liboutils.a (Affiche max.o min.o et variance.o)
+ar -t /opt/lib/liboutils.a (Affiche max.o min.o et variance.o)
 
 _______________________________________________________________________________
 13)
-ranlib opt/lib/liboutils.a
-nm opt/lib/liboutils.a
+ranlib /opt/lib/liboutils.a
+nm /opt/lib/liboutils.a
 
 ______________________________________________________________________________
 14)
-gcc main.c -L opt/lib -I opt/include opt/lib/liboutils.a -o main (compilation)
+gcc main.c -L /opt/lib -I /opt/include -l outils.a -o main.exe (compilation)
 
 ./main (execution, le programme renvoie bien les résultats de max min et variance).
 
@@ -134,9 +132,9 @@ int main ()
 ______________________________________________________________________________
 
 16)
-Remarque: pour que la compilation fonctionne il est nécessaire de relier le code main.c avec la bibliothèque math lib sinon il ne reconnait pas ces fonctions
+Remarque: pour que la compilation fonctionne il est nécessaire de relier le code main.c avec la bibliothèque math lib sinon il ne reconnait pas ces fonctions d'ou l'option -lm
 
 commande:
-gcc main.c -L opt/lib -I opt/include opt/lib/liboutils.a -lm -o main
+gcc main.c -L /opt/lib -I /opt/include -l outils -lm -o main
 
 (Le programme s'exécute bien).
