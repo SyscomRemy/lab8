@@ -47,7 +47,7 @@ int main ()
 
 commande pour vérifier le fonctionnement  du programme:
 gcc -c main.c (compilation)
-gcc -o main main.c max.c min.c (création de l'exécutalbe)
+gcc -o main main.o max.o min.o (création de l'exécutalbe)
 ./main (exécution du programme)
 
 ________________________________________________________________________________
@@ -99,7 +99,7 @@ nm /opt/lib/liboutils.a
 
 ______________________________________________________________________________
 14)
-gcc main.c -L /opt/lib -I /opt/include -l outils.a -o main.exe (compilation)
+gcc main.c -L /opt/lib -I /opt/include -l outils -o main.exe (compilation)
 
 ./main (execution, le programme renvoie bien les résultats de max min et variance).
 
